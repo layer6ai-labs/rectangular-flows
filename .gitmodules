@@ -1,0 +1,9 @@
+[submodule "gitmodules/nsf"]
+	path = gitmodules/nsf
+	url = https://github.com/jrmcornish/nsf.git
+[submodule "gitmodules/BNAF"]
+	path = gitmodules/BNAF
+	url = https://github.com/nicola-decao/BNAF.git
+[submodule "gitmodules/gpytorch"]
+	path = gitmodules/gpytorch
+	url = https://github.com/cornellius-gp/gpytorch.git

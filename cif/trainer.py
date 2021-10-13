@@ -134,10 +134,7 @@ class Trainer:
         self._trainer = Engine(self._train_batch)
 
         AverageMetric().attach(self._trainer)
-        ProgressBar(
-            persist=True,
-            bar_format="{desc}[{n_fmt}/{total_fmt}] {percentage:3.0f}%|{bar}{postfix} [{elapsed_s}<{remaining_s}]"
-        ).attach(self._trainer, ["loss"])
+        ProgressBar(persist=True).attach(self._trainer, ["loss"])
 
         self._trainer.add_event_handler(Events.ITERATION_COMPLETED, TerminateOnNan())
         self._trainer.add_event_handler(Events.ITERATION_COMPLETED, self._log_training_info)

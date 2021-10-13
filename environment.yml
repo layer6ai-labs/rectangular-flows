@@ -1,0 +1,22 @@
+name: rnf
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python>=3.7
+  - numpy
+  - pytorch
+  - torchvision
+  - ignite==0.3
+  - imageio
+  - pandas
+  - matplotlib
+  - scikit-learn
+  - tensorboardx
+  - tensorboard
+  - tqdm
+  - jupyter
+  - h5py
+  - pip
+  - pip:
+    - pyro-ppl>=1.0

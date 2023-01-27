@@ -20,7 +20,7 @@
 )
 
 # MNIST, RNFs-TS
-CUDA_VISIBLE_DEVICES=0,1 ./main.py --model non-square --dataset mnist --config regularization_param=50 --config prior_num_density_layers=5
+CUDA_VISIBLE_DEVICES=0,1 ./main.py --model non-square --baseline --dataset mnist --config regularization_param=50 --config prior_num_density_layers=5
 
 ##############################################
 
@@ -45,7 +45,7 @@ CUDA_VISIBLE_DEVICES=0,1 ./main.py --model non-square --dataset mnist --config r
 
 # Fashion-MNIST, RNFs-TS
 (
-    CUDA_VISIBLE_DEVICES=0,1 ./main.py --model non-square --dataset fashion-mnist --config regularization_param=5
+    CUDA_VISIBLE_DEVICES=0,1 ./main.py --model non-square --baseline --dataset fashion-mnist --config regularization_param=5
     --config prior_num_density_layers=10 --config likelihood_warmup=False --config g_hidden_channels=[64,64,64,64]
 )
 

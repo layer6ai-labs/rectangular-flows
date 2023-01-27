@@ -62,7 +62,6 @@ class SampleLoader:
 
 
 def get_fid_function(config, train_loader):
-    MAX_PIXEL_VALUE = 255
     train_dataset = train_loader.dataset.x
 
     if config["dataset"] in ["mnist", "fashion-mnist", "svhn", "cifar10"]:
@@ -74,7 +73,7 @@ def get_fid_function(config, train_loader):
         dataloader=train_loader,
         length=train_dataset.shape[0],
         device=train_dataset.device
-    ) / MAX_PIXEL_VALUE
+    )
     train_mu, train_cov = get_statistics_numpy(train_data_numpy)
 
     def fid_function(density):
@@ -87,7 +86,7 @@ def get_fid_function(config, train_loader):
             dataloader=sample_loader,
             length=config["num_fid_samples"],
             device=train_dataset.device
-        ) / MAX_PIXEL_VALUE
+        )
         sample_mu, sample_cov = get_statistics_numpy(sample_data)
 
         return calculate_frechet_distance(
@@ -123,6 +122,8 @@ def get_data_from_loader(dataloader, length, device):
 
 
 def get_inception_activations(dataloader, length, device):
+    MAX_PIXEL_VALUE = 255
+
     # NOTE: Store in numpy array for higher precision
     activations = np.empty((length, InceptionV3.DEFAULT_DIMS))
     start_idx = 0
@@ -136,7 +137,7 @@ def get_inception_activations(dataloader, length, device):
             batch = batch.repeat((1,3,1,1))
 
         with torch.no_grad():
-            batch_activations = model(batch)[0].squeeze(3).squeeze(2).cpu().numpy()
+            batch_activations = model(batch / MAX_PIXEL_VALUE)[0].squeeze(3).squeeze(2).cpu().numpy()
 
         activations[start_idx:start_idx+batch.shape[0]] = batch_activations
         start_idx = start_idx + batch.shape[0]

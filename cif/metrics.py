@@ -62,6 +62,7 @@ class SampleLoader:
 
 
 def get_fid_function(config, train_loader):
+    MAX_PIXEL_VALUE = 255
     train_dataset = train_loader.dataset.x
 
     if config["dataset"] in ["mnist", "fashion-mnist", "svhn", "cifar10"]:
@@ -73,7 +74,7 @@ def get_fid_function(config, train_loader):
         dataloader=train_loader,
         length=train_dataset.shape[0],
         device=train_dataset.device
-    )
+    ) / MAX_PIXEL_VALUE
     train_mu, train_cov = get_statistics_numpy(train_data_numpy)
 
     def fid_function(density):
@@ -86,7 +87,7 @@ def get_fid_function(config, train_loader):
             dataloader=sample_loader,
             length=config["num_fid_samples"],
             device=train_dataset.device
-        )
+        ) / MAX_PIXEL_VALUE
         sample_mu, sample_cov = get_statistics_numpy(sample_data)
 
         return calculate_frechet_distance(
